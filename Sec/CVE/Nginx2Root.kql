@@ -1,0 +1,10 @@
+DeviceTvmSoftwareVulnerabilities
+| where CveId in ("CVE-2026-123007","CVE-2026-123634","CVE-2026-123633","CVE-2026-121810","CVE-2026-113425")
+| summarize
+    DeviceName = take_any(DeviceName),
+    OSPlatform = take_any(OSPlatform),
+    SoftwareNames = make_set(SoftwareName),
+    SoftwareVersions = make_set(SoftwareVersion),
+    RecommendedUpdates = make_set(RecommendedSecurityUpdate)
+    by DeviceId
+| order by DeviceName asc
